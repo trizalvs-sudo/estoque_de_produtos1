@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Vendas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='venda.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+</head>
+<body>
+
+<a href="{{ url_for('home') }}" 
+    class="btn-voltar">Voltar
+</a>
+
+    <div class="container"> <main class="content">
+                <h2>Registrar Nova Venda</h2>
+
+
+                <form action="/venda" method="POST" class="product-form">
+                    <input type="hidden" name="acao" value="cadastrar_venda">
+
+                    <div class="form-group">
+                        <label for="id_produto">Produto Vendido:</label>
+                        <select id="id_produto" name="id_produto" class="form-control" required>
+                            <option value="">Selecione o Produto</option>
+                            {% for produto in produtos %}
+                                <option value="{{ produto.id_produto }}">{{ produto.nome_produto }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-row d-flex gap-3">
+                        <div class="form-group flex-fill">
+                            <label for="quantidade">Quantidade Vendida:</label>
+                            <input type="number" id="quantidade" name="quantidade" min="1" step="1  " class="form-control" required>
+                        </div>
+
+                        <div class="form-group flex-fill">
+                            <label for="valorUnitario">Valor Unitário Venda (R$):</label>
+                            <input type="number" id="valorUnitario" name="valorUnitario" step="0.01" min="0.01" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valorTotal">Valor Total da Venda (R$):</label>
+                        <input type="text" id="valorTotal" name="valorTotalDisplay" class="form-control" readonly value="0,00">
+                        <small>Calculado automaticamente.</small>
+                    </div>
+                    
+                    <input type="hidden" id="custoUnitario" name="custoUnitario" value="0.00">
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-submit">Registrar Venda</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectProduto = document.getElementById('id_produto');
+        const quantidadeInput = document.getElementById('quantidade');
+        const valorUnitarioInput = document.getElementById('valorUnitario');
+        const custoUnitarioInput = document.getElementById('custoUnitario');
+        const valorTotalDisplay = document.getElementById('valorTotal');
+
+        function calcularVenda() {
+        
+            const quantidade = parseFloat(quantidadeInput.value.replace(',', '.')) || 0;
+            const valorUnitario = parseFloat(valorUnitarioInput.value.replace(',', '.')) || 0;
+
+            const valorTotal = quantidade * valorUnitario;
+
+        
+            valorTotalDisplay.value = valorTotal.toFixed(2).replace('.', ',');
+        }
+        
+        
+        selectProduto.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            
+            const valor = selectedOption.getAttribute('data-valor');
+            const custo = selectedOption.getAttribute('data-custo');
+
+            if (valor) {
+                valorUnitarioInput.value = parseFloat(valor).toFixed(2).replace('.', ',');
+            } else {
+                valorUnitarioInput.value = '0,00';
+            }
+            if (custo) {
+                custoUnitarioInput.value = parseFloat(custo).toFixed(2); 
+            } else {
+                custoUnitarioInput.value = '0.00';
+            }
+            calcularVenda();
+        });
+
+        quantidadeInput.addEventListener('input', calcularVenda);
+        valorUnitarioInput.addEventListener('input', calcularVenda);
+
+        if (selectProduto.value) {
+            selectProduto.dispatchEvent(new Event('change'));
+        } else {
+            calcularVenda();
+        }
+    });
+</script>
+</body>
+</html>

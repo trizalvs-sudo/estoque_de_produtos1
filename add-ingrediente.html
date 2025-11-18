@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-ingrediente.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+    <title>Adicionar Ingrediente</title>
+
+</head>
+<body>
+
+<a href="{{ url_for('home') }}" 
+    class="btn-voltar">Voltar
+</a>
+    <div class="form-container">
+        <h2>Cadastrar Novo Ingrediente</h2>
+
+
+        <form action="/add_ingrediente" method="POST">
+            
+            <input type="hidden" name="acao" value="adicionar">
+            
+            <div class="form-group">
+                <label for="nome">Nome do Ingrediente:</label>
+                <input type="text" id="nome" name="nome_ingrediente" required>
+            </div>
+
+            <div class="form-group">
+                <label for="unidade_medida">Unidade de Medida:</label>
+                <select id="unidade_medida" name="unidade_medida" required>
+                    <option value="">Selecione...</option>
+                    <option value="KG">KG (Quilograma)</option>
+                    <option value="LT">LT (Litro)</option>
+                    <option value="UN">UN (Unidade)</option>
+                    <option value="ML">ML (Mililitro)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="custo_unitario">Custo Unitário (R$):</label>
+                <input type="number" id="custo_unitario" name="custo_unitario" step="0.01" min="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estoque_atual">Estoque Inicial:</label>
+                <input type="number" id="estoque_atual" name="estoque_atual" step="0.01" min="0" value="0" required>
+            </div>
+            
+            <input type="hidden" name="id_produto" value="1"> 
+
+            <button type="submit" class="btn-submit">Salvar Ingrediente</button>
+        </form>
+        <a href="{{ url_for('ingredientes') }}" class="btn-back">Voltar para o Estoque</a>
+    </div>
+</body>
+</html>
+
+

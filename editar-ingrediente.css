@@ -1,0 +1,72 @@
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        body { 
+            background-color: #f0f2f5; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start; 
+            min-height: 100vh; 
+            padding: 50px 20px; 
+        }
+        .form-container { 
+            max-width: 500px; 
+            width: 100%; 
+            background: #ffffff; 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+        }
+        .form-container h2 { 
+            margin-bottom: 30px; 
+            color: #333; 
+            border-bottom: 2px solid #ffc107; 
+            padding-bottom: 10px; 
+        }
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: 600; 
+            color: #495057; 
+        }
+        .form-control { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ced4da; 
+            border-radius: 6px; 
+            font-size: 1rem; 
+        }
+        .btn-submit { 
+            background-color: #ffc107; 
+            color: #333; 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            transition: background-color 0.3s; 
+            width: 100%; 
+        }
+        .btn-submit:hover { 
+            background-color: #e0a800; 
+        }
+        .alert-error { 
+            background-color: #f8d7da; 
+            color: #721c24; 
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-bottom: 20px; 
+            border: 1px solid #f5c6cb; 
+        }
+        .btn-voltar { 
+            display: block; 
+            text-align: center; 
+            margin-top: 15px; 
+            color: #007bff; 
+            text-decoration: none; 
+        }

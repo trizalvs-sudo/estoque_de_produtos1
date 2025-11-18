@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Ingrediente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='editar-ingrediente.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='botao.css') }}">
+</head>
+<body>
+
+<a href="{{ url_for('home') }}" 
+    class="btn-voltar">Voltar
+</a>
+
+<div class="form-container">
+    <h2> Editar Ingrediente</h2>
+        
+        <form action="/update_ingrediente" method="POST">
+
+            <input type="hidden" name="id_producao" value="{{ ingrediente.id_producao }}">
+
+            <div class="form-group">
+                <label>Nome do Ingrediente:</label>
+                <input type="text" name="nome_ingrediente" value="{{ ingrediente.nome_ingrediente }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Unidade de Medida:</label>
+                <select name="unidade_medida" class="form-control" required>
+                    <option value="KG" {% if ingrediente.unidade_medida == 'KG' %}selected{% endif %}>KG</option>
+                    <option value="LT" {% if ingrediente.unidade_medida == 'LT' %}selected{% endif %}>LT</option>
+                    <option value="UN" {% if ingrediente.unidade_medida == 'UN' %}selected{% endif %}>UN</option>
+                    <option value="ML" {% if ingrediente.unidade_medida == 'ML' %}selected{% endif %}>ML</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Custo Unitário (R$):</label>
+                <input type="number" step="0.01" name="custo_unitario" value="{{ ingrediente.custo_unitario }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Estoque Atual:</label>
+                <input type="number" step="0.01" name="estoque_atual" 
+                    value="{{ ingrediente.estoque_atual }}" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Salvar Alterações</button>
+        </form>
+</div>
+
+</body>
+</html>
